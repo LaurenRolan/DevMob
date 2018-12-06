@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/activity_calculatrice"
+        tools:context="ensicaen.fr.calculatrice.Calculatrice">
+
+    <TextView
+            android:text="0"
+            android:layout_height="wrap_content" android:layout_width="340dp" android:id="@+id/visor"
+            android:textSize="30sp" android:textAlignment="center" android:layout_marginRight="24dp"
+            app:layout_constraintRight_toRightOf="parent" android:layout_marginLeft="24dp"
+            app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="24dp" app:layout_constraintHorizontal_bias="0.0"/>
+    <Button
+            android:text="X!"
+            android:layout_height="wrap_content" android:id="@+id/fatorial"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/visor" android:layout_marginLeft="24dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="70dp"/>
+    <Button
+            android:text="X^Y"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content" android:id="@+id/pow"
+            android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/visor"
+            app:layout_constraintLeft_toRightOf="@+id/fatorial" android:layout_marginLeft="24dp"/>
+    <Button
+            android:text="log X"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content" android:id="@+id/log"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/visor" app:layout_constraintLeft_toRightOf="@+id/pow"
+            android:layout_marginLeft="24dp"/>
+    <Button
+            android:text="e"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/exp" app:layout_constraintLeft_toRightOf="@+id/log" android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/visor"
+    />
+    <Button
+            android:text="1"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chiffre1" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/fatorial" app:layout_constraintRight_toLeftOf="@+id/chiffre2"
+            android:layout_marginRight="24dp"
+            android:layout_marginLeft="24dp" app:layout_constraintLeft_toLeftOf="parent"/>
+    <Button
+            android:text="2"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chiffre2" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/pow" app:layout_constraintRight_toLeftOf="@+id/chiffre6"
+            android:layout_marginRight="24dp"/>
+    <Button
+            android:text="3"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chiffre3" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/log" app:layout_constraintLeft_toRightOf="@+id/chiffre2"
+            android:layout_marginLeft="24dp" app:layout_constraintRight_toLeftOf="@+id/symbPlus"
+            android:layout_marginRight="24dp"/>
+    <Button
+            android:text="+"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content" android:layout_marginLeft="24dp"
+            tools:layout_editor_absoluteX="276dp" android:id="@+id/symbPlus" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/exp" app:layout_constraintLeft_toRightOf="@+id/chiffre3"/>
+    <Button
+            android:text="4"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chiffre4" app:layout_constraintRight_toLeftOf="@+id/chiffre5"
+            android:layout_marginRight="24dp" android:layout_marginLeft="24dp"
+            app:layout_constraintLeft_toLeftOf="parent" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/chiffre1"/>
+    <Button
+            android:text="5"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chiffre5" app:layout_constraintRight_toLeftOf="@+id/chiffre6"
+            android:layout_marginRight="24dp" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/chiffre2"/>
+    <Button
+            android:text="6"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chiffre6" app:layout_constraintRight_toLeftOf="@+id/symbMoins"
+            android:layout_marginRight="24dp" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/chiffre3"/>
+    <Button
+            android:text="-"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/symbMoins" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/symbPlus" android:layout_marginRight="24dp"
+            app:layout_constraintRight_toRightOf="parent"/>
+    <Button
+            android:text="7"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chiffre7" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/chiffre4" android:layout_marginLeft="24dp"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+    <Button
+            android:text="8"
+            android:layout_height="wrap_content"
+            android:id="@+id/chiffre8" android:layout_width="70dp"
+            android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/chiffre5"
+            app:layout_constraintLeft_toRightOf="@+id/chiffre7" android:layout_marginLeft="24dp"/>
+    <Button
+            android:text="9"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chiffre9" app:layout_constraintLeft_toRightOf="@+id/chiffre8"
+            android:layout_marginLeft="24dp" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/chiffre6"/>
+    <Button
+            android:text="*"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/symbMult" app:layout_constraintLeft_toRightOf="@+id/chiffre9"
+            android:layout_marginLeft="24dp" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/symbMoins" android:layout_marginRight="24dp"
+            app:layout_constraintRight_toRightOf="parent"/>
+    <Button
+            android:text="."
+            android:layout_height="wrap_content"
+            android:id="@+id/symbPoint" android:layout_width="70dp" android:layout_marginLeft="24dp"
+            app:layout_constraintLeft_toLeftOf="parent" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/chiffre7"/>
+    <Button
+            android:text="0"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chiffre0" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/chiffre8" app:layout_constraintLeft_toRightOf="@+id/symbPoint"
+            android:layout_marginLeft="24dp"/>
+    <Button
+            android:text="C"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/clear" app:layout_constraintLeft_toRightOf="@+id/chiffre0"
+            android:layout_marginLeft="24dp" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/chiffre9"/>
+    <Button
+            android:text="/"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/symbDiv" app:layout_constraintLeft_toRightOf="@+id/clear" android:layout_marginLeft="8dp"
+            android:layout_marginRight="24dp" app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/symbMult"/>
+    <Button
+            android:text="="
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/equals" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/chiffre0" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"/>
+</android.support.constraint.ConstraintLayout>
