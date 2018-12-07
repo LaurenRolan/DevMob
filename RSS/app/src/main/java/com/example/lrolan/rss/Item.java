@@ -13,6 +13,8 @@ public class Item {
         this.enclosure = enclosure;
     }
 
+    public Item( ) { }
+
     public String getTitle() {
         return title;
     }

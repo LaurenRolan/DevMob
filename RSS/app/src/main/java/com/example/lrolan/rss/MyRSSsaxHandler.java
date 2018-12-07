@@ -18,7 +18,7 @@ import java.util.List;
 References:
    http://www.vogella.com/tutorials/RSSFeed/article.html
    https://github.com/musiKk/rss-sax/blob/master/src/main/java/com/github/musikk/rsssax/RssHandler.java
-
+   https://stackoverflow.com/questions/21638199/get-and-show-a-sequence-of-images-from-url
 */
 
 
@@ -63,9 +63,43 @@ public class MyRSSsaxHandler extends DefaultHandler {
         }
     }
 
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void setState(String current)
+    {
+        switch(current) {
+            case "item":
+                inTitle = false ;
+                inDescription = false ;
+                inItem = true ;
+                inDate = false ;
+                break;
+            case "title":
+                inTitle = true ;
+                inDescription = false ;
+                inItem = false ;
+                inDate = false ;
+                break;
+            case "descripion":
+                inTitle = false ;
+                inDescription = true ;
+                inItem = false ;
+                inDate = false ;
+                break;
+            case "date":
+                inTitle = false ;
+                inDescription = false ;
+                inItem = false ;
+                inDate = true ;
+                break;
+             default:
+                 inTitle = false ;
+                 inDescription = false ;
+                 inItem = false ;
+                 inDate = false ;
+                 break;
+        }
+    }
 
-        Item current;
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
         if(!uri.isEmpty())
             return;
@@ -75,16 +109,20 @@ public class MyRSSsaxHandler extends DefaultHandler {
                 rss.setVersion(attributes.getValue("version"));;
                 break;
             case "item":
-                current = new Item(new String(title), new String(description), new String(date), imageURL);
+                numItem++;
+                setState("item");
                 break;
             case "title":
-                current.setTitle(attributes.getValue("title"));
+                setState("title");
+                title = attributes.getValue("title");
                 break;
             case "description":
-                current.setDescription(attributes.getValue("description"));
+                setState("description");
+                description = attributes.getValue("description"));
                 break;
             case "pubDate":
-                current.setPubDate(attributes.getValue("pubDate"));
+                setState("pubDate");
+                date = attributes.getValue("pubDate");
                 break;
             case "enclosure":
                 current.setEnclosure(attributes.getValue("enclosure"));
@@ -101,6 +139,12 @@ public class MyRSSsaxHandler extends DefaultHandler {
     }
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
+        if (!uri.isEmpty()) {
+            string = "";
+            return;
+        }
+        string = string.trim();
+        if
 
         switch (qName)
         {
