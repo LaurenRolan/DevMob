@@ -14,6 +14,15 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
+/*
+References:
+   http://www.vogella.com/tutorials/RSSFeed/article.html
+   https://github.com/musiKk/rss-sax/blob/master/src/main/java/com/github/musikk/rsssax/RssHandler.java
+
+*/
+
+
+
 
 public class MyRSSsaxHandler extends DefaultHandler {
     private String url = null ;// l'URL du flux RSS à parser
@@ -32,6 +41,7 @@ public class MyRSSsaxHandler extends DefaultHandler {
     private int numItem = 0; // Le numéro de l'item à extraire du flux RSS
     private int numItemMax = - 1; // Le nombre total d’items dans le flux RSS
     private List<Item> liste;
+    private Rss rss;
 
     public void setUrl(String url){
         this.url= url;
@@ -55,18 +65,51 @@ public class MyRSSsaxHandler extends DefaultHandler {
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
+        Item current;
+
+        if(!uri.isEmpty())
+            return;
+
+        switch (localName) {
+            case "rss":
+                rss.setVersion(attributes.getValue("version"));;
+                break;
+            case "item":
+                current = new Item(new String(title), new String(description), new String(date), imageURL);
+                break;
+            case "title":
+                current.setTitle(attributes.getValue("title"));
+                break;
+            case "description":
+                current.setDescription(attributes.getValue("description"));
+                break;
+            case "pubDate":
+                current.setPubDate(attributes.getValue("pubDate"));
+                break;
+            case "enclosure":
+                current.setEnclosure(attributes.getValue("enclosure"));
+                break;
+
+            }
+            liste.add(current);
+        }
+    } catch (XMLStreamException e) {
+        throw new RuntimeException(e);
+    }
+        return feed;
 
     }
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
+
         switch (qName)
         {
             case "item":
-                liste.add(new Item(new String(title), new String(description), new String(date), imageURL));
+                current.;
                 numItemMax += 1;
                 break;
             case "title":
-                //TODO
+                list.
                 break;
         }
     }
@@ -78,6 +121,21 @@ public class MyRSSsaxHandler extends DefaultHandler {
     public Bitmap getBitmap(String imageURL) {
 
         return null;
+    }
+
+    public class RSSViewHolder
+    {
+        String title;
+        String description;
+        String date;
+        String linkImage;
+
+        public RSSViewHolder(String title, String description, String date, String linkImage) {
+            this.title = title;
+            this.description = description;
+            this.date = date;
+            this.linkImage = linkImage;
+        }
     }
 
 }
