@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TP3</string>
+    <string name="test_image_title">Dummy Title</string>
+    <string name="test_image_date">xx/yy/zzzz</string>
+    <string name="description_image">Description</string>
+    <string name="test_image_description">Test description</string>
+</resources>
