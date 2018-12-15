@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -33,6 +34,7 @@ public class MyRSSsaxHandler extends DefaultHandler {
     private boolean inDescription = false ;
     private boolean inItem = false ;
     private boolean inDate = false ;
+    private boolean inEnclosure = false;
     // L'image référencée par l'attribut url du tag <enclosure>
     private Bitmap image = null ;
     private String imageURL = null ;
@@ -45,6 +47,7 @@ public class MyRSSsaxHandler extends DefaultHandler {
     private List<Item> liste;
     StringBuilder mSb;
     boolean isBuilding;
+    Item current = new Item();
 
     public void setUrl(String url){
         this.url= url;
@@ -52,8 +55,8 @@ public class MyRSSsaxHandler extends DefaultHandler {
 
     public void processFeed(){
         try {
+            liste = new ArrayList<>();
             Log.d("MyRSS", "ProcessFeed");
-            numItem = 0; //A modifier pour visualiser un autre item
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
             XMLReader reader = parser.getXMLReader();
@@ -90,37 +93,47 @@ public class MyRSSsaxHandler extends DefaultHandler {
                 inDescription = false ;
                 inItem = value ;
                 inDate = false ;
+                inEnclosure = false ;
                 break;
             case "title":
                 inTitle = value ;
                 inDescription = false ;
                 inItem = false ;
                 inDate = false ;
+                inEnclosure = false ;
                 break;
             case "descripion":
                 inTitle = false ;
                 inDescription = value ;
                 inItem = false ;
                 inDate = false ;
+                inEnclosure = false ;
                 break;
             case "date":
                 inTitle = false ;
                 inDescription = false ;
                 inItem = false ;
                 inDate = value ;
+                inEnclosure = false ;
+                break;
+            case "enclosure":
+                inTitle = false ;
+                inDescription = false ;
+                inItem = false ;
+                inDate = false ;
+                inEnclosure = value ;
                 break;
             default:
                 inTitle = false ;
                 inDescription = false ;
                 inItem = false ;
                 inDate = false ;
+                inEnclosure = false;
                 break;
         }
     }
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        Item current = new Item();
-
         mSb = new StringBuilder();
         isBuilding = true;
 
@@ -129,7 +142,7 @@ public class MyRSSsaxHandler extends DefaultHandler {
 
         switch (localName) {
             case "item":
-                numItem++;
+                Log.d("MyRSS", String.valueOf(numItem));
                 setState("item", true);
                 break;
             case "title":
@@ -145,43 +158,42 @@ public class MyRSSsaxHandler extends DefaultHandler {
                 date = attributes.getValue(qName);
                 break;
             case "enclosure":
-                current.setEnclosure(attributes.getValue(qName));
+                setState("enclosure", true);
                 break;
-
         }
     }
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        Item current = new Item();
         switch (localName) {
             case "item":
                 numItem++;
                 setState("item", false);
+                Log.d("MyRSS", current.getPubDate() + " " + current.getDescription());
+                liste.add(current);
+                current = new Item();
                 break;
             case "title":
                 setState("title", false);
                 title = String.valueOf(mSb);
-                Log.d("MyRSS", "Title: " + title);
                 current.setTitle(title);
                 break;
             case "description":
                 setState("description", false);
                 description = String.valueOf(mSb);
-                Log.d("MyRSS", "Description: " + description);
                 current.setDescription(description);
                 break;
             case "pubDate":
                 setState("pubDate", false);
                 date = String.valueOf(mSb);
-                Log.d("MyRSS", "Date: " + date);
                 current.setPubDate(date);
                 break;
             case "enclosure":
+                setState("enclosure", false);
+                Log.d("MyRSS", "Enclosure: " + String.valueOf(mSb));
                 current.setEnclosure(String.valueOf(mSb));
                 imageURL = current.getLinkImage();
                 Log.d("MyRSS", "URL: " + imageURL);
                 break;
-
         }
     }
 
@@ -193,8 +205,41 @@ public class MyRSSsaxHandler extends DefaultHandler {
         }
     }
 
+    public void setCurrent(int index)
+    {
+        Item current = liste.get(index);
+        title = current.getTitle();
+        Log.d("MyRSS", title);
+        description = current.getDescription();
+        date = current.getPubDate();
+        imageURL = current.getLinkImage();
+        image = getBitmap(imageURL);
+    }
+
     public String getNumber() {
-        return String.valueOf(numItemMax);
+        return String.valueOf(numItem);
+    }
+
+    public void nextItem() {
+        if(numItem < numItemMax )
+            numItem++;
+        setCurrent(numItem);
+    }
+
+    public void previousItem() {
+        if(numItem > 0)
+            numItem--;
+        setCurrent(numItem);
+    }
+
+    public void goFirstItem() {
+        numItem = 0;
+        setCurrent(numItem);
+    }
+
+    public void goLastItem() {
+        numItem = numItemMax;
+        setCurrent(numItem - 1);
     }
 
     public String getTitle() {
@@ -209,24 +254,8 @@ public class MyRSSsaxHandler extends DefaultHandler {
         return image;
     }
 
-    public Object getDescription() {
+    public String getDescription() {
         return description;
-    }
-
-
-    class RSSViewHolder
-    {
-        StringBuffer title;
-        StringBuffer description;
-        StringBuffer date;
-        StringBuffer linkImage;
-
-        public RSSViewHolder(StringBuffer title, StringBuffer description, StringBuffer date, StringBuffer linkImage) {
-            this.title = title;
-            this.description = description;
-            this.date = date;
-            this.linkImage = linkImage;
-        }
     }
 
 }

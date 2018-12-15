@@ -17,7 +17,6 @@ public class DownloadRssTask extends AsyncTask<MyRSSsaxHandler, Void, MyRSSsaxHa
     {
         // Mise à jour des données de notre vue à partir
         // du titre, date, image et description lus
-        monActivity.resetDisplay(handler.getTitle(),handler.getDate(),handler.getImage(),
-                handler.getDescription().toString());
+        monActivity.resetDisplay(handler);
     }
 }

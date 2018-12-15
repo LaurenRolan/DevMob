@@ -27,16 +27,29 @@
                 android:layout_gravity="center_horizontal"
                 android:weightSum="1">
             <Button
-                    style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/button"
-                    android:layout_weight="0.5" />
+                    android:id="@+id/first"
+                    android:layout_weight="0.5" android:background="@android:drawable/ic_media_rew"
+                    android:onClick="goFirst"/>
             <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/button2"
-                    android:layout_weight="0.5" />
+                    android:id="@+id/previous"
+                    android:layout_weight="0.5" android:background="@android:drawable/ic_media_previous"
+                    android:onClick="goPrevious"/>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/next"
+                    android:layout_weight="0.5" android:background="@android:drawable/ic_media_next"
+                    android:onClick="goNext"/>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/last"
+                    android:layout_weight="0.5" android:background="@android:drawable/ic_media_ff"
+                    android:onClick="goLast"/>
         </LinearLayout>
         <TextView
                 android:id = "@+id/imageTitle"

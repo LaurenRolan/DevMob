@@ -1,5 +1,7 @@
 package ensicaen.fr.tp3;
 
+import android.util.Log;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,6 +60,7 @@ public class Item {
         {
             link = m.group(1);
         }
+        Log.d("Item", link);
         return link;
 
     }
