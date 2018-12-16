@@ -158,6 +158,11 @@ public class MyRSSsaxHandler extends DefaultHandler {
                 date = attributes.getValue(qName);
                 break;
             case "enclosure":
+                if(attributes != null)
+                {
+                    imageURL = attributes.getValue("url");
+                    setState("enclosure", true);
+                }
                 setState("enclosure", true);
                 break;
         }
@@ -190,8 +195,8 @@ public class MyRSSsaxHandler extends DefaultHandler {
             case "enclosure":
                 setState("enclosure", false);
                 Log.d("MyRSS", "Enclosure: " + String.valueOf(mSb));
-                current.setEnclosure(String.valueOf(mSb));
-                imageURL = current.getLinkImage();
+                //current.setEnclosure(String.valueOf(mSb));
+                //imageURL = current.getLinkImage();
                 Log.d("MyRSS", "URL: " + imageURL);
                 break;
         }
@@ -212,8 +217,8 @@ public class MyRSSsaxHandler extends DefaultHandler {
         Log.d("MyRSS", title);
         description = current.getDescription();
         date = current.getPubDate();
-        imageURL = current.getLinkImage();
-        image = getBitmap(imageURL);
+        //imageURL = current.getLinkImage();
+        //image = getBitmap(imageURL);
     }
 
     public String getNumber() {
