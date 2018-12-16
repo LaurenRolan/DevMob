@@ -9,13 +9,13 @@ public class Item {
     private String title;
     private String description;
     private String pubDate;
-    private String enclosure;
+    private String link;
 
-    public Item(String title, String description, String pubDate, String enclosure) {
+    public Item(String title, String description, String pubDate, String link) {
         this.title = title;
         this.description = description;
         this.pubDate = pubDate;
-        this.enclosure = enclosure;
+        this.link = link;
     }
 
     public Item( ) { }
@@ -44,25 +44,11 @@ public class Item {
         this.pubDate = pubDate;
     }
 
-    public String getEnclosure() {
-        return enclosure;
-    }
-
-    public void setEnclosure(String enclosure) {
-        this.enclosure = enclosure;
-    }
-
-    public String getLinkImage() {
-        String link = "";
-        Pattern p = Pattern.compile("\"(.*?)\"");
-        Matcher m = p.matcher(enclosure);
-        while(m.find())
-        {
-            link = m.group(1);
-        }
-        Log.d("Item", link);
+    public String getLink() {
         return link;
-
     }
 
+    public void setLink(String link) {
+        this.link = link;
+    }
 }

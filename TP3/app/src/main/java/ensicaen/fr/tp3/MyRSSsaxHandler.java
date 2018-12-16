@@ -142,7 +142,6 @@ public class MyRSSsaxHandler extends DefaultHandler {
 
         switch (localName) {
             case "item":
-                Log.d("MyRSS", String.valueOf(numItem));
                 setState("item", true);
                 break;
             case "title":
@@ -173,7 +172,6 @@ public class MyRSSsaxHandler extends DefaultHandler {
             case "item":
                 numItem++;
                 setState("item", false);
-                Log.d("MyRSS", current.getPubDate() + " " + current.getDescription());
                 liste.add(current);
                 current = new Item();
                 break;
@@ -194,10 +192,7 @@ public class MyRSSsaxHandler extends DefaultHandler {
                 break;
             case "enclosure":
                 setState("enclosure", false);
-                Log.d("MyRSS", "Enclosure: " + String.valueOf(mSb));
-                //current.setEnclosure(String.valueOf(mSb));
-                //imageURL = current.getLinkImage();
-                Log.d("MyRSS", "URL: " + imageURL);
+                current.setLink(imageURL);
                 break;
         }
     }
@@ -214,11 +209,9 @@ public class MyRSSsaxHandler extends DefaultHandler {
     {
         Item current = liste.get(index);
         title = current.getTitle();
-        Log.d("MyRSS", title);
         description = current.getDescription();
         date = current.getPubDate();
-        //imageURL = current.getLinkImage();
-        //image = getBitmap(imageURL);
+        imageURL = current.getLink();
     }
 
     public String getNumber() {
@@ -228,7 +221,7 @@ public class MyRSSsaxHandler extends DefaultHandler {
     public void nextItem() {
         if(numItem < numItemMax )
             numItem++;
-        setCurrent(numItem);
+        setCurrent(numItem - 1);
     }
 
     public void previousItem() {
@@ -258,6 +251,8 @@ public class MyRSSsaxHandler extends DefaultHandler {
     public Bitmap getImage() {
         return image;
     }
+
+    public String getImageURL() { return imageURL; }
 
     public String getDescription() {
         return description;

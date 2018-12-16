@@ -1,6 +1,7 @@
 package ensicaen.fr.tp3;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -50,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         TextView titleView = (TextView) findViewById(R.id.imageTitle);
         titleView.setText(handler.getTitle());
 
-        ImageView imageView = (ImageView) findViewById(R.id.imageDisplay);
-        imageView.setImageBitmap(handler.getImage());
+        ImageLoader task = new ImageLoader(this, handler);
+        task.execute();
 
         TextView descriptionView = (TextView) findViewById(R.id.imageDescription);
         descriptionView.setText(handler.getDescription());
